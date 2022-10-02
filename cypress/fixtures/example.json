@@ -1,6 +1,11 @@
 {
   "url": "http://localhost:4200/",
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+  "header": "The Star Wars Search",
+  "characterName": "Luke Skywalker",
+  "partialName": "L",
+  "planetName": "Tatooine",
+  "partialPlanetName": "T",
+  "characterDetails":["Gender: male ","Birth year: 19BBY ","Eye color: blue ","Skin color: fair "],
+  "planetDetails": ["Population: 200000 ","Climate: arid ","Gravity: 1 standard "],
+  "invalidName": "test"  
 }

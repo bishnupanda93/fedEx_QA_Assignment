@@ -10,7 +10,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "spec": "./node_modules/.bin/cypress run --spec cypress/e2e --headed --browser chrome",
-    "spec1": "./node_modules/.bin/cypress run --spec cypress/e2e/integration/test.feature --headed --no-exit --browser chrome",
     "cypress:open": "./node_modules/.bin/cypress open",
     "cypress:run": "./node_modules/.bin/cypress run"
   },

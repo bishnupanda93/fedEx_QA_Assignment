@@ -1,88 +1,52 @@
 /// <reference types="cypress" />
+import homePage from './pageObject/homePage.js'
+import searchPage from './pageObject/searchPage.js'
 const data = require('../fixtures/example.json');
-//import data from ('./fixtures/example.json')
+const homepage = new homePage();
+const searchpage = new searchPage();
 describe('The Star Wars Search scenarios', () => {
-  beforeEach(function () {
-    cy.visit(data.url);
-    cy.get('body > app-root > div > div > div > h1').should('have.text', 'The Star Wars Search')
+  beforeEach(function () {    
+    cy.visit(data.url)
+    homepage.getHeader().should('have.text', data.header)
   })
   it('Verify when user searches for a valid character', () => {
-    cy.get('#query').type('Luke Skywalker')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.text', 'Luke Skywalker')
-    cy.get('.row').eq(1).should('have.text', 'Gender: male ')
-    cy.get('.row').eq(2).should('have.text', 'Birth year: 19BBY ')
-    cy.get('.row').eq(3).should('have.text', 'Eye color: blue ')
-    cy.get('.row').eq(4).should('have.text', 'Skin color: fair ')
+    searchpage.searchData(data.characterName)
+    searchpage.verifyData(data.characterDetails,1)
   })
-  /*
   it('Verify when user searches for an invalid character', () => {
-    cy.get('#query').type('Luke test')
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.invalidSearch(data.invalidName)
   })
   it('Verify when user searches for a valid planet', () => {
-    cy.get('#planets').click()
-    cy.get('#query').type('Tatooine')
-    cy.get('button.btn-primary').click()
-    cy.get('.card-subtitle').should('have.text', 'Tatooine')
-    cy.get('.row').eq(1).should('have.text', 'Population: 200000 ')
-    cy.get('.row').eq(2).should('have.text', 'Climate: arid ')
-    cy.get('.row').eq(3).should('have.text', 'Gravity: 1 standard ')
+    searchpage.searchData(data.planetName,1)
+    searchpage.verifyData(data.planetDetails)
   })
   it('Verify when user searches for an invalid planet', () => {
-    cy.get('#planets').click()
-    cy.get('#query').type('Tatooine test')
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.invalidSearch(data.invalidName,1)
   })
   it('Verify user can clear an already searched list for a valid character', () => {    
-    cy.get('#query').type('L')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.length', 10)
-    cy.get('#query').clear()
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.searchData(data.partialName)
+    searchpage.searchDataSwitchForm(3)
   })
   it('Verify user can clear an already searched list for a valid planet', () => {
-    cy.get('#planets').click()
-    cy.get('#query').type('T')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.length', 10)
-    cy.get('#query').clear()
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.searchData(data.partialPlanetName,1)
+    searchpage.searchDataSwitchForm(3)
   })
   it('Verify user can search results by pressing enter button', () => {
     cy.get('#query').type('Luke Skywalker{enter}')
     cy.get('h6.card-subtitle').should('have.text', 'Luke Skywalker')
   })
   it('Verify user gets no result when switching to planet from people for a valid character name', () => {
-    cy.get('#query').type('Luke Skywalker')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.text', 'Luke Skywalker')
-    cy.get('#planets').click()
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.searchData(data.characterName)
+    searchpage.searchDataSwitchForm(2)
   })
   it('Verify user gets no result when switching to people from planet for a valid planet name', () => {
-    cy.get('#planets').click()
-    cy.get('#query').type('Tatooine')
-    cy.get('button.btn-primary').click()
-    cy.get('.card-subtitle').should('have.text', 'Tatooine')
-    cy.get('#people').click()
-    cy.get('button.btn-primary').click()
-    cy.get('body > app-root > div > div > div > div:nth-child(5)').should('have.text', 'Not found.')
+    searchpage.searchData(data.planetName,1)
+    searchpage.searchDataSwitchForm(1)
   })
   it('Verify user gets multiple results for partial matching character name', () => {
-    cy.get('#query').type('L')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.length', 10)
+    searchpage.searchMultipleData(data.partialName)
   })
   it('Verify user gets multiple results for partial matching planet name', () => {
-    cy.get('#planets').click()
-    cy.get('#query').type('T')
-    cy.get('button.btn-primary').click()
-    cy.get('h6.card-subtitle').should('have.length', 10)
-  })*/
+    searchpage.searchMultipleData(data.partialPlanetName,1)
+  })
 })

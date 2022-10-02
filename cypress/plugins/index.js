@@ -1,8 +1,8 @@
-const tsPreprocessor = require('./ts-preprocessor');
+//const tsPreprocessor = require('./ts-preprocessor');
 
-module.exports = on => {
+/*module.exports = on => {
   on('file:preprocessor', tsPreprocessor);
-};
+};*/
 const cucumber = require('cypress-cucumber-preprocessor').default
 
 module.exports = (on, config) => {
