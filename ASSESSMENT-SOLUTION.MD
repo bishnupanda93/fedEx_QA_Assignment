@@ -23,8 +23,10 @@
 
 # Steps to run the test set
 
-1. "cypress:run" is defined under scripts in package.json file
-2. use command "npm run cypress:run" to run the test suite
+1. clone the repository to local machine
+2. use command "npm install" to install all the dependencies present in package.json file
+3. "cypress:run" is defined under scripts in package.json file
+4. use command "npm run cypress:run" to run the test suite
 
 # Bugs/Observations found
 
